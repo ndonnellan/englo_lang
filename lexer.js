@@ -18,7 +18,7 @@ var Lexer = function(){
 
 	self.tokenize = function(code){
 		// Remove extra line breaks and tabs
-		code = code.replace(/(\r\n|\n|\r|\t)/gm,"");
+		code = code.replace(/(\r\n|\n|\r|\t)/gm," ");
 
 		// Replace multiple spaces with single spaces
 		code = code.replace(/\s\s+/," ");
