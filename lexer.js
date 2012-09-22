@@ -50,24 +50,24 @@ var Lexer = function(){
 				// Move the index past what we've read so far
 				i += identifier.length;
 
-			} else if (constant = /^([A-Z]\w*)/.exec(chunk)) {
+			} else if (constant = /^([A-Z]\w*)/.execOnce(chunk)) {
 				// class names and constants, starting with capitals
 				tokens.push(['CONSTANT', constant]);
 				i += constant.length;
 
-			} else if (number = /^([0-9]+)/.exec(chunk)) {
+			} else if (number = /^([0-9]+)/.execOnce(chunk)) {
 				tokens.push(['NUMBER', number]);
 				i += number.length;
 
-			} else if (string = /^"(.*?)"/.exec(chunk)) {
+			} else if (string = /^"(.*?)"/.execOnce(chunk)) {
 				tokens.push(['STRING', string]);
 				i += string.length + 2; // Don't forget to add the quotes' lengths!
 
-			} else if (operator = /^(\|\||&&|==|!=|<=|>=)/.exec(chunk)) {
+			} else if (operator = /^(\|\||&&|==|!=|<=|>=)/.execOnce(chunk)) {
 				// Long operators
 				tokens.push([operator, operator]);
 
-			} else if (/^ /.exec(chunk)){
+			} else if (/^ /.execOnce(chunk)){
 				i+= 1; // Ignore remaining whitespace
 
 			} else {
