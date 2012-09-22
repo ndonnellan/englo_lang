@@ -66,9 +66,10 @@ var Lexer = function(){
 			} else if (operator = /^(\|\||&&|==|!=|<=|>=)/.execOnce(chunk)) {
 				// Long operators
 				tokens.push([operator, operator]);
+				i += operator.length;
 
 			} else if (/^ /.execOnce(chunk)){
-				i+= 1; // Ignore remaining whitespace
+				i += 1; // Ignore remaining whitespace
 
 			} else {
 				// Catch all other single characters
