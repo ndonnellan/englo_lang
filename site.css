@@ -1,0 +1,11 @@
+#lexer_output {
+	font-family:"courier";
+}
+
+#code {
+	font-family:"courier";
+}
+table, tr, td {
+	vertical-align: top;
+	text-align: left
+}

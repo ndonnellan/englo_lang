@@ -1,8 +1,22 @@
 <!DOCTYPE html>
 <html>
 <script src="lexer.js" type="text/javascript"></script>
-<script type="text/javascript">
-	var lex = new Lexer();
-	var tok = lex.tokenize("if asdf = 1");
-</script>
+<script src="site.js" type="text/javascript"></script>
+<link rel="Stylesheet" type="text/css" href="site.css"></style>
+
+<body>
+	<table>
+		<tr>
+			<td>
+				<p>Code</p>
+				<textarea id="code" onchange="setLexerOutput()" rows=40 cols=40></textarea>
+			</td>
+			<td>
+				<p>Lexer output</p>
+				<textarea id="lexer_output" ></textarea>
+			</td>
+		</tr>
+	</table>
+
+</body>
 </html>
