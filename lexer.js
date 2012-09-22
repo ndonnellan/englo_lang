@@ -3,6 +3,15 @@
 // Heavily influenced by my purchased createyourownproglang book,
 // but I'm recreating it in JavaScript so that I know I understand
 // what's going on.
+
+// I'm creating this function to simplify the semantics becase
+// "exec" will return an "array" if a match occurs, but I just want
+// the first element of the array
+RegExp.prototype.execOnce = function(str){
+	var result = this.exec(str);
+	return (result) ? result[0] : null;
+};
+
 var Lexer = function(){
 	var self = {};
 	var KEYWORDS = ["def", "class", "if", "true", "false", "nil", "while"];
@@ -30,8 +39,7 @@ var Lexer = function(){
 			var chunk = code.slice(i); // Grab from "i" until the end
 
 			// Match for words (keywords or userdefined)
-			if (identifier = /^([a-z]\w*)/.exec(chunk)){
-				identifier = identifier[0];
+			if (identifier = /^([a-z]\w*)/.execOnce(chunk)){
 				// Keywords: if, else, etc.
 				if (KEYWORDS.indexOf(identifier) >= 0){
 					tokens.push([identifier.toUpperCase(),identifier]);
@@ -44,20 +52,20 @@ var Lexer = function(){
 
 			} else if (constant = /^([A-Z]\w*)/.exec(chunk)) {
 				// class names and constants, starting with capitals
-				tokens.push(['CONSTANT', constant[0]]);
-				i += constant[0].length;
+				tokens.push(['CONSTANT', constant]);
+				i += constant.length;
 
 			} else if (number = /^([0-9]+)/.exec(chunk)) {
-				tokens.push(['NUMBER', number[0]]);
-				i += number[0].length;
+				tokens.push(['NUMBER', number]);
+				i += number.length;
 
 			} else if (string = /^"(.*?)"/.exec(chunk)) {
-				tokens.push(['STRING', string[0]]);
-				i += string[0].length + 2; // Don't forget to add the quotes' lengths!
+				tokens.push(['STRING', string]);
+				i += string.length + 2; // Don't forget to add the quotes' lengths!
 
 			} else if (operator = /^(\|\||&&|==|!=|<=|>=)/.exec(chunk)) {
 				// Long operators
-				tokens.push([operator[0], operator[0]]);
+				tokens.push([operator, operator]);
 
 			} else if (/^ /.exec(chunk)){
 				i+= 1; // Ignore remaining whitespace
